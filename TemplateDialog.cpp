@@ -15,15 +15,6 @@ INT_PTR CALLBACK TemplateDialogProcedure( HWND hWndDialog, UINT uMessage, WPARAM
 		case WM_INITDIALOG:
 		{
 			// An init dialog message
-			HFONT hFont;
-
-			// Get font
-			hFont = ( HFONT )GetStockObject( DEFAULT_GUI_FONT );
-
-			// Set control fonts
-			SendDlgItemMessage( hWndDialog, IDC_EDITTEXT, WM_SETFONT, ( WPARAM )hFont, ( LPARAM )TRUE );
-			SendDlgItemMessage( hWndDialog, IDOK, WM_SETFONT, ( WPARAM )hFont, ( LPARAM )TRUE );
-			SendDlgItemMessage( hWndDialog, IDCANCEL, WM_SETFONT, ( WPARAM )hFont, ( LPARAM )TRUE );
 
 			// Set edit text
 			SetDlgItemText( hWndDialog, IDC_EDITTEXT, g_lpszInputText );
