@@ -5,6 +5,66 @@
 // Global variables
 LPTSTR g_lpszInputText;
 
+BOOL TemplateDialogPositionToMouse( HWND hWndDialog )
+{
+	BOOL bResult = FALSE;
+
+	RECT rcDialog;
+
+	// Get dialog size
+	if( GetWindowRect( hWndDialog, &rcDialog ) )
+	{
+		// Successfully got dialog size
+		POINT ptMouse;
+
+		// Get mouse position
+		if( GetCursorPos( &ptMouse ) )
+		{
+			// Successfully got mouse position
+			int nDialogWidth;
+			int nDialogHeight;
+			int nDialogLeft;
+			int nDialogTop;
+
+			// Calculate dialog size
+			nDialogWidth	= ( rcDialog.right - rcDialog.left );
+			nDialogHeight	= ( rcDialog.bottom - rcDialog.top );
+
+			// Calculate cialog position
+			nDialogLeft		= ( ptMouse.x - nDialogWidth );
+			nDialogTop		= ( ptMouse.y - nDialogHeight );
+
+			// Ensure that left position is ok
+			if( nDialogLeft < 0 )
+			{
+				// Left position is not ok
+
+				// Correct left position
+				nDialogLeft = 0;
+
+			} // End of left position is not ok
+
+			// Ensure that top position is ok
+			if( nDialogTop < 0 )
+			{
+				// Top position is not ok
+
+				// Correct top position
+				nDialogTop = 0;
+
+			} // End of top position is not ok
+
+			// Move dialog window
+			bResult = MoveWindow( hWndDialog, nDialogLeft, nDialogTop, nDialogWidth, nDialogHeight, TRUE );
+
+		} // End of successfully got mouse position
+
+	} // End of successfully got dialog size
+
+	return bResult;
+
+} // End of function TemplateDialogPositionToMouse
+
 INT_PTR CALLBACK TemplateDialogProcedure( HWND hWndDialog, UINT uMessage, WPARAM wParam, LPARAM )
 {
 	BOOL bResult = FALSE;
@@ -15,6 +75,9 @@ INT_PTR CALLBACK TemplateDialogProcedure( HWND hWndDialog, UINT uMessage, WPARAM
 		case WM_INITDIALOG:
 		{
 			// An init dialog message
+
+			// Position template dialog to mouse
+			TemplateDialogPositionToMouse( hWndDialog );
 
 			// Set edit text
 			SetDlgItemText( hWndDialog, IDC_EDITTEXT, g_lpszInputText );
@@ -78,7 +141,7 @@ INT_PTR CALLBACK TemplateDialogProcedure( HWND hWndDialog, UINT uMessage, WPARAM
 
 } // End of function TemplateDialogProcedure
 
-BOOL ShowTemplateDialog( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText )
+BOOL TemplateDialogShow( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText )
 {
 	BOOL bResult = FALSE;
 
@@ -106,4 +169,4 @@ BOOL ShowTemplateDialog( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputT
 
 	return bResult;
 
-} // End of function ShowTemplateDialog
+} // End of function TemplateDialogShow

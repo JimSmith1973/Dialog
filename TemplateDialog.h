@@ -14,4 +14,4 @@
 #define IDD_TEMPLATE_DIALOG														9000
 #define IDC_EDITTEXT                                                            9001
 
-BOOL ShowTemplateDialog( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText );
+BOOL TemplateDialogShow( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText );

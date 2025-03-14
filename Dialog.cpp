@@ -11,7 +11,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE, LPTSTR, int )
 	lstrcpy( lpszInputText, "Input some text" );
 
 	// Show template dialog box
-	if( ShowTemplateDialog( NULL, hInstance, lpszInputText ) )
+	if( TemplateDialogShow( NULL, hInstance, lpszInputText ) )
 	{
 		// Successfully shown template dialog box
 
