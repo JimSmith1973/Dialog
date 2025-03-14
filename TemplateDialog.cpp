@@ -4,6 +4,7 @@
 
 // Global variables
 LPTSTR g_lpszInputText;
+LPTSTR g_lpszTitle;
 
 BOOL TemplateDialogPositionToMouse( HWND hWndDialog )
 {
@@ -79,6 +80,9 @@ INT_PTR CALLBACK TemplateDialogProcedure( HWND hWndDialog, UINT uMessage, WPARAM
 			// Position template dialog to mouse
 			TemplateDialogPositionToMouse( hWndDialog );
 
+			// Set title
+			SetDlgItemText( hWndDialog, IDC_TITLE, g_lpszTitle );
+
 			// Set edit text
 			SetDlgItemText( hWndDialog, IDC_EDITTEXT, g_lpszInputText );
 
@@ -141,15 +145,17 @@ INT_PTR CALLBACK TemplateDialogProcedure( HWND hWndDialog, UINT uMessage, WPARAM
 
 } // End of function TemplateDialogProcedure
 
-BOOL TemplateDialogShow( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText )
+BOOL TemplateDialogShow( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText, LPCTSTR lpszTitle )
 {
 	BOOL bResult = FALSE;
 
 	// Allocate string memory
-	g_lpszInputText = new char[ STRING_LENGTH + sizeof( char ) ];
+	g_lpszInputText	= new char[ STRING_LENGTH + sizeof( char ) ];
+	g_lpszTitle		= new char[ STRING_LENGTH + sizeof( char ) ];
 
-	// Copy input text to global
-	lstrcpy( g_lpszInputText, lpszInputText );
+	// Copy texts into global
+	lstrcpy( g_lpszInputText,	lpszInputText );
+	lstrcpy( g_lpszTitle,		lpszTitle );
 
 	// Show template dialog
 	if( DialogBox( hInstance, MAKEINTRESOURCE( IDD_TEMPLATE_DIALOG ), hWndParent, TemplateDialogProcedure ) == IDOK )
@@ -166,6 +172,7 @@ BOOL TemplateDialogShow( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputT
 
 	// Free string memory
 	delete [] g_lpszInputText;
+	delete [] g_lpszTitle;
 
 	return bResult;
 

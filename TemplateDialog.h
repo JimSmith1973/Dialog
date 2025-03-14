@@ -15,4 +15,6 @@
 #define IDC_TITLE																9001
 #define IDC_EDITTEXT															9002
 
-BOOL TemplateDialogShow( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText );
+#define TEMPLATE_DIALOG_DEFAULT_TITLE											"Input Some Text"
+
+BOOL TemplateDialogShow( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText, LPCTSTR lpszTitle = TEMPLATE_DIALOG_DEFAULT_TITLE );
