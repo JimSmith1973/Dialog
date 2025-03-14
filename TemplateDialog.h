@@ -12,6 +12,7 @@
 #endif
 
 #define IDD_TEMPLATE_DIALOG														9000
-#define IDC_EDITTEXT                                                            9001
+#define IDC_TITLE																9001
+#define IDC_EDITTEXT															9002
 
 BOOL TemplateDialogShow( HWND hWndParent, HINSTANCE hInstance, LPTSTR lpszInputText );
